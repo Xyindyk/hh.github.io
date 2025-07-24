@@ -1,0 +1,111 @@
+<head>
+	<title>Моя первая веб-страница</title>
+	<link rel="stylesheet" href="2.css">
+	<meta charset="utf-8">
+	<link rel="manifest" href="/manifest.json">
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/service-worker.js");
+  }
+</script>
+</head>
+<body>
+    <header>
+        <img src="bmw.jpg" class="logo">
+        <h1 "align="center">Добро пожаловать на мою страницу</h1><br>
+    </header>
+    
+    <div class="filter-section">
+        <h2 style="text-align: center;">Фильтр автомобилей</h2>
+        <div class="filter-row">
+            <select id="car-type">
+                <option value="all">Все типы</option>
+                <option value="sedan">Седаны</option>
+                <option value="crossover">Кроссоверы</option>
+            </select>
+            <select id="power">
+                <option value="all">Любая мощность</option>
+                <option value="less500">До 500 л.с.</option>
+                <option value="more500">500+ л.с.</option>
+            </select>
+            <button onclick="applyFilters()">Применить</button>
+        </div>
+    </div>
+    
+    <main id="sedans">
+		<main>
+			<h1>Седаны</h1>
+			<div class="gallery">
+				<a href="BMW_M4.html" data-type="sedan" data-power="510">
+					<img src="M4.jpg" alt="BMW M4">
+					<span>Подробнее</span>
+				</a>
+				<a href="BMW_M5.html" data-type="sedan" data-power="600">
+					<img src="M5.jpeg" alt="BMW M5">
+					<span>Подробнее</span>
+				</a>
+				<a href="BMW_M8.html" data-type="sedan" data-power="625">
+					<img src="M8.jpg" alt="BMW M8">
+					<span>Подробнее</span>
+				</a>
+			</div>
+		</main>
+    </main>
+    
+    <main id="crossovers">
+        <h1>Кроссоверы</h1>
+        <div class="gallery">
+            <a href="BMW_X5.html" data-type="crossover" data-power="625">
+                <img src="X5.jpg" alt="BMW X5">
+                <span>Подробнее</span>
+            </a>
+            <a href="BMW_X4.html" data-type="crossover" data-power="480">
+                <img src="X4.jpg" alt="BMW X4">
+                <span>Подробнее</span>
+            </a>
+            <a href="BMW_X7.html" data-type="crossover" data-power="625">
+                <img src="X7.jpg" alt="BMW X7">
+                <span>Подробнее</span>
+            </a>
+        </div>
+    </main>
+	<main1>
+	<div class="gallery back">
+            <a href="back.html">
+				<main1>
+                <span>Ваши пожелания</span>
+				</main1>
+            </a>
+		<div>
+	</main1>
+
+    <script>
+        function applyFilters() {
+            const carType = document.getElementById('car-type').value;
+            const power = document.getElementById('power').value;
+            
+            const sedansSection = document.getElementById('sedans');
+            const crossoversSection = document.getElementById('crossovers');
+            
+            // Показываем/скрываем секции по типу
+            sedansSection.style.display = carType === 'crossover' ? 'none' : 'block';
+            crossoversSection.style.display = carType === 'sedan' ? 'none' : 'block';
+            
+            // Фильтрация по мощности
+            document.querySelectorAll('.gallery a').forEach(car => {
+                const carPower = parseInt(car.getAttribute('data-power'));
+                let shouldShow = true;
+                
+                if (power === 'less500' && carPower >= 500) {
+                    shouldShow = false;
+                } else if (power === 'more500' && carPower < 500) {
+                    shouldShow = false;
+                }
+                
+                car.style.display = shouldShow ? 'flex' : 'none';
+            });
+        }
+    </script>
+	
+</body>
+</html>

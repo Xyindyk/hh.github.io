@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>Моя первая веб-страница</title>
+    <link rel="stylesheet" href="2.css">
+    <meta charset="utf-8">
+</head>
+<body>
+    <header>
+        <img src="bmw.jpg" class="logo">
+        <h1 "align="center">Добро пожаловать на мою страницу</h1><br>
+    </header>
+	<main>
+	<div>
+		<h1>Ваши пожелания или замечания! :)</h1>
+		<form name="form1" method="post" action="test.php"> 
+		<p> Имя:<br> <input type="text" name="sirname"></p> 
+		<p> Ваш Email:<br> <input  type="text" name="email"></p>
+		<p> Сообщение<br> <textarea name="message"></textarea></p><p>
+		<input type="submit" name="send" value="Отправить"></p></form> 
+	</div>
+	<div class="gallery1">
+            <a href="index.html">
+				<main>
+                <span>Назад</span>
+				</main>
+            </a>
+		</div>
+	</main>
+	
+	<?
+	/* Подключаемся к базе данных */
+	$link = mysqli_connect("localhost", "root", "");
+	mysqli_select_db($link, "forma");
+
+	/* Выбираем данные */
+	$sql="SELECT name, email, msg FROM feedback ORDER BY id DESC";
+	$result=mysqli_query($link, $sql);
+
+	while ($line=mysqli_fetch_row($result)) {
+	echo "<b>Имя:</b>".$line[0]."<br>";
+	echo "<b>Email:</b>".$line[1]."<br>";
+	echo "<b>Сообщение:</b>".$line[2]."<br><br>";
+	}
+?>
+</body>
+</html> 
